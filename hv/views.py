@@ -17,3 +17,13 @@ def hv_lists(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         
+
+@api_view(['GET'])
+def hv_detail(request, pk):
+    try:
+        hv = HV.objects.get(pk=pk)
+        serializer = HVSerializer(hv);
+        return Response(serializer.data)
+
+    except HV.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND);
